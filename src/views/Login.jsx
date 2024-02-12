@@ -1,19 +1,34 @@
-import { useEffect } from "react";
-import { useForm } from "../hooks/useForm"
+import { useContext, useEffect, useRef } from "react";
+
+import { useAuth } from "../hooks/useAuth";
+import { AuthContext } from "../context/AuthContext";
 
 
 export default function Login() {
 
-    const {formState, onInputChange} = useForm({
-        email:'',
-        password:'',
-    });
+  const {login} = useAuth()
+  const { onLogin } =useContext(AuthContext);
 
-    const {email,password} = formState
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
-    useEffect(() => {
-        console.log('username changed!');
-      }, [email])
+  
+  const onSubmit = (e) =>{
+    e.preventDefault();
+    
+    const datos = {
+      email:emailRef.current.value,
+      password:passwordRef.current.value,
+    }
+
+    console.log(datos)
+
+    login(datos);
+    onLogin(datos.email);
+
+  }
+
+  
 
   return (
     
@@ -26,20 +41,19 @@ export default function Login() {
                 <p>Email</p>
                 <input type="email"
                        name="email"
-                       onChange={onInputChange}
-                       value={email}
+                       ref={emailRef}
                        className="rounded p-1.5 border" />
             </div>
             <div className="mt-2">
                 <p>Contraseña</p>
                 <input type="password" 
                        name="password"
-                       onChange={onInputChange}
-                       value={password}
+                       ref={passwordRef}
                        className="rounded p-1.5 border" />
             </div>
             <div className="mt-3">
-                <button className="bg-blue-500 rounded-lg text-white font-semibold p-3">Entrar</button>
+                <button onClick={onSubmit}
+                        className="bg-blue-500 rounded-lg text-white font-semibold p-3">Entrar</button>
             </div>
             </form>
         </div>

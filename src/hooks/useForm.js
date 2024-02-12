@@ -14,18 +14,10 @@ export const useForm = (initialForm = {}) => {
       })
     }
 
-    const onReset = () =>{
-        console.log('Borrar');
-
-        setFormState(initialForm)
-        
-    }
-
-    
     return{
         formState,
         onInputChange,
-        onReset
+
     }
 
 }
