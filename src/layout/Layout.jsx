@@ -7,9 +7,9 @@ export default function Layout() {
   return (
 
     <>
-      <div className="flex ">
+      <div className="flex h-screen ">
 
-        <div className="bg-blue-600 shadow-md rounded-md w-1/6 h-screen">
+        <div className="bg-blue-600 shadow-md rounded-md w-1/6 ">
           <Sidebar/>
         </div>
 

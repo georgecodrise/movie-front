@@ -29,7 +29,6 @@ const login = async(datos) =>{
         onLogin(data.user.name);
         navigate('/');
         
-
     } catch (error) {
         console.log(error);
     }

@@ -13,7 +13,9 @@ export default function Peliculas() {
       <div className="mt-3">        
         <ModalPelicula/>
 
-        <TablaPeliculas/>
+        <div className='mt-3'>
+         <TablaPeliculas/>
+        </div>
 
       </div>
 

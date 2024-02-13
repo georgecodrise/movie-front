@@ -4,6 +4,7 @@ import { apiBackend } from "../api/api";
 
 export const useApp = () => {
 
+    const [user,setUser] = useState([])
     const [movie,setMovie] = useState([])
     const token = localStorage.getItem('token')
   
@@ -34,9 +35,9 @@ export const useApp = () => {
         }
     }
 
-    const getMovie = async()=>{
+    const getMovie = async (page)=>{
         try {
-            const data = await apiBackend.get('/movies')
+            const data = await apiBackend.get(`/movies?page=${page}`)
             setMovie(data.data)
             console.log(data.data);
         } catch (error) {
@@ -44,12 +45,16 @@ export const useApp = () => {
         }
     }
 
+    
+
     useEffect( ()=>{
-       getMovie();
+        getUser();
     },[] )
 
     return {
         onNewMovie,
+        getMovie,
         movie,
+        user
     }
 }

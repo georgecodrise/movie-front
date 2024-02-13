@@ -12,6 +12,7 @@ export default function Sidebar() {
             
           <Link to='/peliculas' className='text-white font-bold text-lg w-full p-2 hover:bg-blue-700 cursor-pointer'>Peliculas</Link>
           <Link to='/salas' className='text-white font-bold text-lg w-full p-2 hover:bg-blue-700 cursor-pointer'>Salas</Link>
+          <Link to='/funciones' className='text-white font-bold text-lg w-full p-2 hover:bg-blue-700 cursor-pointer'>Funciones</Link>
           <Link to='/reservas' className='text-white font-bold text-lg w-full p-2 hover:bg-blue-700 cursor-pointer'>Reservaciones</Link>
             
         </div>

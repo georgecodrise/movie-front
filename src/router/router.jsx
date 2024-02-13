@@ -8,6 +8,7 @@ import AuthLayout from "../layout/AuthLayout";
 import Login from "../views/Login";
 import Register from "../views/Register";
 import { PrivateRoute } from "./PrivateRoute";
+import Funciones from "../views/Funciones";
 
 
 export const router = createBrowserRouter([
@@ -29,9 +30,14 @@ export const router = createBrowserRouter([
                 element:<Salas/>
             },
             {
+                path:'/funciones',
+                element:<Funciones/>
+            },
+            {
                 path:'/reservas',
                 element:<Reservaciones/>
-            }
+            },
+            
         ]
     },
     {
