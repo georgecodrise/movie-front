@@ -9,6 +9,10 @@ import Login from "../views/Login";
 import Register from "../views/Register";
 import { PrivateRoute } from "./PrivateRoute";
 import Funciones from "../views/Funciones";
+import NewFuncion from "../views/NewFuncion";
+import GuestLayout from "../layout/GuestLayout";
+import CarteleraGuest from "../views/guest/CarteleraGuest";
+import ComprarGuest from "../views/guest/ComprarGuest";
 
 
 export const router = createBrowserRouter([
@@ -19,10 +23,6 @@ export const router = createBrowserRouter([
         children:[
             {
                 index:true,
-                element:<Home/>
-            },
-            {
-                path:'/peliculas',
                 element:<Peliculas/>
             },
             {
@@ -31,13 +31,31 @@ export const router = createBrowserRouter([
             },
             {
                 path:'/funciones',
-                element:<Funciones/>
+                element:<Funciones/>,
+            },
+            {
+                path:'/funciones/new',
+                element:<NewFuncion/>
             },
             {
                 path:'/reservas',
                 element:<Reservaciones/>
             },
             
+        ]
+    },
+    {
+        path:'/guest',
+        element:<GuestLayout/>,
+        children:[
+            {
+                index:true,
+                element:<CarteleraGuest/>
+            },
+            {
+                path:'/guest/comprar/:id',
+                element:<ComprarGuest/>
+            }
         ]
     },
     {

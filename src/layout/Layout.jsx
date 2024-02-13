@@ -7,6 +7,7 @@ export default function Layout() {
   return (
 
     <>
+    <PrivateRoute>
       <div className="flex h-screen ">
 
         <div className="bg-blue-600 shadow-md rounded-md w-1/6 ">
@@ -18,6 +19,7 @@ export default function Layout() {
         </div>
 
       </div>
+      </PrivateRoute>
     </>
 
     

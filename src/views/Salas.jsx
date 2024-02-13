@@ -1,5 +1,5 @@
+import TablaSala from "../components/sala/TablaSala";
 
-import ModalSala from '../components/ModalSala'
 
 export default function Salas() {
   return (
@@ -7,13 +7,10 @@ export default function Salas() {
       <p className="text-4xl font-semibold">Salas</p>
 
       <div className="mt-3">
-        
-        <ModalSala/>
-
-        
+      
+        <TablaSala/>
 
       </div>
-
       
     </div>
   )

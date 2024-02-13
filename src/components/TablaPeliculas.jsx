@@ -5,8 +5,6 @@ import useSWR from 'swr';
 
 export default function TablaPeliculas() {
 
-    const { movie, getMovie } = useApp();
-
     const[page,setPage] = useState(1);
 
     const handleNextPage = () =>{
@@ -24,9 +22,6 @@ export default function TablaPeliculas() {
 
       console.log(data);
 
-    // useEffect(() => {
-    //     getMovie();
-    // }, [])
 
     return (
         <>
@@ -75,7 +70,7 @@ export default function TablaPeliculas() {
 
             <div className='flex justify-between mt-2'>Mostrando:{data?.from} - {data?.to}
             <div className='flex gap-3'>
-                <button disabled={ !data?.prev_page_url ? true : false }
+                <button disabled={ !data?.prev_page_url ? true : false}
                         onClick={handlePreviousPage}
                         className='bg-blue-500 text-white font-semibold p-2 rounded-md'>Atrás</button>
                 <button onClick={handleNextPage} 
