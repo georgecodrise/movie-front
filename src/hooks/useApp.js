@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { apiBackend } from "../api/api";
+import { toast } from "react-toastify";
 
 
 export const useApp = () => {
@@ -10,11 +11,15 @@ export const useApp = () => {
     const [cartelera, setCartelera] = useState([]);
     const [selectMovie, setSelectMovie] = useState([]);
     const [modal,setModal] = useState(false);
+    const [errorCartelera, setErrorCartelera] = useState([])
+
+    
 
     const token = localStorage.getItem('token')
 
     const onClickModal = () =>{
         setModal(!modal);
+        setErrorCartelera([])
     }
   
     const getUser = async() =>{
@@ -93,11 +98,26 @@ export const useApp = () => {
         }
     }
 
-    
+    const onCartelera = async (datos) =>{
+        try {
+            const {data} =  await apiBackend.post('/reservas',datos);
+            console.log(data);
+            setErrorCartelera([]);
+            toast.success('Asientos Reservados!');
+            //onClickModal();
+        } catch (error) {
+            console.log(error.response.data.errors);
+            setErrorCartelera(error.response.data.errors)
+        }
+    }
+
+    const notify1 = () =>toast.error( errorCartelera[0] );
+    const notify2 = () =>toast.error( errorCartelera[1] );
 
     useEffect( ()=>{
-        selectMovie;
-    },[selectMovie] )
+        notify1();
+        notify2();
+    },[errorCartelera])
 
     return {
         onNewMovie,
@@ -113,5 +133,7 @@ export const useApp = () => {
         selectedMovie,
         onClickModal,
         modal,
+        onCartelera,
+        errorCartelera,
     }
 }
