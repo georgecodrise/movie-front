@@ -43,7 +43,7 @@ const logout = ()=>{
 
 useEffect(() => {
     console.log('useEffect load!');
-  },[] )
+  }, [])
 
 
 return {

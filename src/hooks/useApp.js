@@ -12,6 +12,7 @@ export const useApp = () => {
     const [selectMovie, setSelectMovie] = useState([]);
     const [modal,setModal] = useState(false);
     const [errorCartelera, setErrorCartelera] = useState([])
+    const [errorOnNew, setErrorOnNew] = useState([])
 
     
 
@@ -20,6 +21,7 @@ export const useApp = () => {
     const onClickModal = () =>{
         setModal(!modal);
         setErrorCartelera([])
+        console.log(modal);
     }
   
     const getUser = async() =>{
@@ -82,8 +84,12 @@ export const useApp = () => {
     const onNewCartelera = async (datos) =>{
         try {
             const {data} = await apiBackend.post('/cartelera',datos)
+            setErrorOnNew([]);
+            toast.success('Se registró la función correctamente');
             console.log(data);
         } catch (error) {
+
+            setErrorOnNew(error.response.data.errors)
             console.log(error);
         }
     }
@@ -104,20 +110,38 @@ export const useApp = () => {
             console.log(data);
             setErrorCartelera([]);
             toast.success('Asientos Reservados!');
-            //onClickModal();
+            
         } catch (error) {
             console.log(error.response.data.errors);
-            setErrorCartelera(error.response.data.errors)
+            setErrorCartelera(error?.response?.data?.errors)
+        }
+    }
+
+    const onDeleteCarteleraID = async (id) => {
+        try {
+            const {data}=await apiBackend.delete('cartelera',id)
+            console.log(`ID desde el useApp ${id}`);
+            console.log(data);
+        } catch (error) {
+            console.log(error);
         }
     }
 
     const notify1 = () =>toast.error( errorCartelera[0] );
     const notify2 = () =>toast.error( errorCartelera[1] );
 
+    const errorNewFun = ()=>toast.error(errorOnNew[0]);
+
     useEffect( ()=>{
         notify1();
         notify2();
-    },[errorCartelera])
+    },[errorCartelera]);
+
+    useEffect( ()=>{
+        errorNewFun();
+    },[errorOnNew]);
+
+
 
     return {
         onNewMovie,
@@ -135,5 +159,7 @@ export const useApp = () => {
         modal,
         onCartelera,
         errorCartelera,
+        errorOnNew,
+        onDeleteCarteleraID
     }
 }

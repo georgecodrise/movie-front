@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { useApp } from '../../hooks/useApp';
 import Modal from 'react-modal';
-import { toast, ToastContainer } from 'react-toastify';
+import moment from 'moment';
+import 'moment/dist/locale/es-us';
+
+
 
 const customStyles = {
     content: {
@@ -17,6 +20,8 @@ const customStyles = {
   
 Modal.setAppElement('#root');
 
+
+
 export default function CarteleraGuest() {
 
   const {cartelera,
@@ -25,15 +30,12 @@ export default function CarteleraGuest() {
           onClickModal,
           modal,
           selectMovie,
-          onCartelera,
-          errorCartelera,
-          notify} = useApp();
+          onCartelera} = useApp();
 
   const [counter, setCounter] = useState(1)
   const idRef = useRef();
   const cantTicketRef = useRef();
-
-
+  
   const onSubmit =()=>{
 
     try {
@@ -70,24 +72,32 @@ export default function CarteleraGuest() {
    },[] )
 
   return (
-    <div className='flex flex-col'>
+    <div className='p-10'>
 
        <div>
-           <p className='text-5xl font-semibold'>Cartelera</p>
+           <p className='text-5xl text-white font-semibold'>Cartelera</p>
        </div>
 
        <div>
 
-       <div className='grid grid-cols-4 gap-4 mt-5'>
+       <div className='grid grid-cols-1 gap-4 mt-5 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5'>
           {cartelera.map(cartelera=>
-            <div className='rounded-lg border p-3' key={cartelera.id}>
+            <div className='bg-white shadow-lg rounded-lg border p-3' key={cartelera.id}>
               <p>{cartelera.pelicula}</p>
               <p>{cartelera.sala}</p>
-              <p>{cartelera.fecha}</p>
-              <p>{cartelera.hora}</p>
+              <p className='capitalize' >{moment(cartelera.inicio).format('ddd D, h:mm A')}</p>
+              <p>Asientos disponibles: {cartelera.disponibles}</p>
+              
 
-              <div className='flex gap-3 mt-3'>
-                <button onClick={()=>{onClickModal(),onMovieID(cartelera.id)}}>Ver</button>
+              <div className='flex justify-center gap-3 mt-3'>
+                <button onClick={()=>{onClickModal(),onMovieID(cartelera.id)}} 
+                        className='flex gap-2 bg-black rounded-lg p-2 text-white font-semibold'>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                  </svg>
+                  Ver
+                </button>
               </div>
               
             </div>
@@ -108,21 +118,20 @@ export default function CarteleraGuest() {
                         <input className='font-semibold bg-white' ref={idRef} defaultValue={movie.id}  hidden/>                    
                         Pelicula: <p className='font-semibold'>{movie.pelicula}</p>
                         Sala:<p className='font-semibold'>{movie.sala}</p>
-                        Fecha:<p className='font-semibold'>{movie.fecha}</p>
-                        Hora:<p className='font-semibold'>{movie.hora}</p>
+                        Fecha:<p className='font-semibold'>{moment(cartelera.inicio).format('ddd D, h:mm A')}</p>
                     </div>
                 )}
 
                 <div className=''>
                     Entradas:
                     <div className='flex items-center gap-3'>
-                        <button onClick={decrement} className='bg-blue-500 rounded-md p-2'>
+                        <button onClick={decrement} className='bg-black rounded-md p-2'>
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3.5} stroke="white" className="w-4 h-4">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
                           </svg>
                         </button>
                             <input className='font-semibold bg-white w-4' ref={cantTicketRef} value={counter} disabled/>
-                        <button onClick={increment} className='bg-blue-500 rounded-md p-2'>
+                        <button onClick={increment} className='bg-black rounded-md p-2'>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3.5} stroke="white" className="w-4 h-4">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                           </svg>
@@ -131,7 +140,7 @@ export default function CarteleraGuest() {
                 </div>
 
                 <button onClick={onSubmit}
-                        className='mt-3 bg-blue-500 rounded-md text-white font-semibold p-2 hover:bg-blue-600'>
+                        className='mt-3 bg-black rounded-md text-white font-semibold p-2'>
                     Reservar
                 </button>               
             </div>

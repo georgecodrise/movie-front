@@ -25,7 +25,7 @@ export default function GuestLayout() {
 
   return (
     <>
-    <div className="mx-14 my-12 p-5 bg-white rounded-lg shadow-lg">
+    <div className="bg-cover bg-stairs h-screen w-screen overflow-y-scroll">
         <Outlet/>
 
     </div>

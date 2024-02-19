@@ -34,7 +34,7 @@ export default function Register() {
 
   return (
     <>
-      <div>
+      <div className="bg-white shadow-lg rounded-lg p-5 md:w-72">
         <div className="text-4xl font-semibold ">Registro</div>
 
         <form action="">

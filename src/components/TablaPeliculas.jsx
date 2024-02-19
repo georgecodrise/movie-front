@@ -8,7 +8,7 @@ export default function TablaPeliculas() {
     const[page,setPage] = useState(1);
 
     const handleNextPage = () =>{
-        console.log(page);
+        //console.log(page);
         setPage(page + 1);
       }
     

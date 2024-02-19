@@ -5,7 +5,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage:{
+        'background':"url('../public/subtle-prism.svg')",
+        'stairs':"url('../public/cornered-stairs.svg')",
+      }
+    },
   },
   plugins: [],
 }

@@ -1,15 +1,23 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { useApp } from '../hooks/useApp'
+import { useForm } from 'react-hook-form';
 
 export default function NewFuncion() {
+
+  // const { register, handleSubmit, formState: { errors }} = useForm();
+
+  // const onSubmitForm = (data) => {
+  //   console.log(data);
+    
+  // }
 
   const {movie,getMovie, sala, getSala, onNewCartelera} = useApp();
 
   const movieRef = useRef();
   const salaRef = useRef();
-  const dateRef = useRef();
-  const timeRef = useRef();
+  const inicioRef = useRef();
+  const finRef = useRef();
 
   const onSubmit = (e)=>{
     e.preventDefault();
@@ -17,8 +25,8 @@ export default function NewFuncion() {
     const datos={
       movie: movieRef.current.value,
       sala: salaRef.current.value,
-      date: dateRef.current.value,
-      time: timeRef.current.value
+      inicio: inicioRef.current.value,
+      fin: finRef.current.value
     }
 
     console.log(datos);
@@ -42,16 +50,20 @@ export default function NewFuncion() {
         </svg>
         Volver </Link>       
 
+        <form>
+
         <div className='mt-5'>
           <div className="col-span-2 sm:col-span-1">
+            
             <label htmlFor="movie"
               className="block mb-2 text-xl font-medium text-gray-900">Película</label>
             <select
               ref={movieRef}
-              id="movie"
+              name="movie"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-fit p-2.5"
+              required
             >
-              <option defaultValue="">--Selecciona película--</option>
+              <option value="">--Selecciona película--</option>
               {movie.map(movie =>
                 <option key={movie.id} value={movie.id}>{movie.name}</option>
               )}
@@ -79,25 +91,31 @@ export default function NewFuncion() {
         </div>
 
         <div className='mt-5 flex gap-3'>
-          <div className="col-span-2 sm:col-span-1">
+        <div className="col-span-2 sm:col-span-1">
             <label htmlFor="fecha"
-              className="block mb-2 text-xl font-medium text-gray-900">Fecha</label>
-            <input type="date" name="date" id="date" ref={dateRef} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"/>
+              className="block mb-2 text-xl font-medium text-gray-900">Inicio</label>
+            <input type="datetime-local" name="date" id="date" ref={inicioRef} 
+                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
+                   required
+            />
             
           </div>
           <div className="col-span-2 sm:col-span-1">
-            <label htmlFor="hora"
-              className="block mb-2 text-xl font-medium text-gray-900">Hora</label>
-            <input type="time" name="time" id="time" ref={timeRef} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5" />
+            <label htmlFor="fecha"
+              className="block mb-2 text-xl font-medium text-gray-900">Fin</label>
+            <input type="datetime-local" name="date" id="date" ref={finRef} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"/>
           </div>
         </div>
+
         
         <div className='mt-3'>
           <button onClick={onSubmit} className='bg-blue-500 rounded-lg text-white font-semibold p-3'>Guardar</button>
         </div>
+        </form>
        
 
         </div>
+
 
     </div>
 

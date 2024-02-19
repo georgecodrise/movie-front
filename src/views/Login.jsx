@@ -28,12 +28,10 @@ export default function Login() {
 
   }
 
-  
-
   return (
-    
     <>
-        <div>
+        <div className="bg-white shadow-lg rounded-lg p-5 md:w-72">
+      
             <div className="text-4xl font-semibold ">Login</div>
 
             <form action="">
@@ -57,6 +55,7 @@ export default function Login() {
             </div>
             </form>
         </div>
+        
     </>
 
   )
