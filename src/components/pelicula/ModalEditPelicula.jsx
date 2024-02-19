@@ -8,7 +8,7 @@ export default function ModalEditPelicula({idMovie}) {
     const {selectMovie,selectedMovie,movie,getMovie,sala, getSala} = useApp();
 
     const onSubmitForm =(data)=>{
-        onNewMovie(data);
+        //onNewMovie(data);
         console.log(data);
     }
 
@@ -26,17 +26,17 @@ export default function ModalEditPelicula({idMovie}) {
         getSala();
     },[] )
 
-    console.log(selectMovie);
+    //console.log(selectMovie);
 
   return (
     <div className='mt-3'>
-
+        <form>
         {selectMovie.map( select=>
             
            <>
             <p>Película</p>
 
-            <select name="" id="" className='p-2 rounded-lg border w-full' {...register("genre",{required:true})}>
+            <select name="" id="" className='p-2 rounded-lg border w-full' {...register("pelicula",{required:true})}>
                 <option value={select.movie_id}>{select.pelicula}</option>
                 {movie.map( movies =>
                     <>
@@ -46,33 +46,33 @@ export default function ModalEditPelicula({idMovie}) {
             </select>
 
             <p>Sala</p>
-            <select name="" id="" className='p-2 rounded-lg border w-full' {...register("genre",{required:true})}>
+            <select name="" id="" className='p-2 rounded-lg border w-full' {...register("sala",{required:true})}>
                 <option value={select.sala_id}>{select.sala}</option>
-                {sala.map(sala=>
+                {sala.map(salas=>
                     <>
-                    <option value={sala.id}>{sala.name}</option>
+                    <option value={salas.id}>{salas.name}</option>
                     </>
                 )}    
             </select>
-
-           </>
-                
-           )}   
-        <form>   
 
             <p>Inicio</p>
             <input type="datetime-local"
                    placeholder='Año' 
                    className='p-2 rounded-lg border w-full'
-                    
-                   {...register("year",{required:true})}/>
+                    defaultValue={select.inicio}
+                   {...register("inicio",{required:true})}/>
             
             <p>Fin</p>
             <input type="datetime-local" 
                    placeholder='Año' 
                    className='p-2 rounded-lg border w-full'
-                   
-                   {...register("year",{required:true})}/>
+                   defaultValue={select.fin}
+                   {...register("fin",{required:true})}/>
+
+           </>
+                
+           )}   
+
         </form>
         <button onClick={handleSubmit(onSubmitForm)}
                 className='bg-blue-600 text-white font-semibold p-2.5 mt-3 rounded-lg'>Guardar</button>
