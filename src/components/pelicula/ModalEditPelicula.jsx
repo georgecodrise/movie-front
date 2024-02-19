@@ -37,7 +37,7 @@ export default function ModalEditPelicula({idMovie}) {
             <p>Película</p>
 
             <select name="" id="" className='p-2 rounded-lg border w-full' {...register("genre",{required:true})}>
-                <option value="">{select.pelicula}</option>
+                <option value={select.movie_id}>{select.pelicula}</option>
                 {movie.map( movies =>
                     <>
                     <option value={movies.id}>{movies.name}</option>
@@ -46,10 +46,8 @@ export default function ModalEditPelicula({idMovie}) {
             </select>
 
             <p>Sala</p>
-            <select name="" id="" 
-                    className='p-2 rounded-lg border w-full'
-                    {...register("genre",{required:true})}>
-                <option value="">{select.sala}</option>
+            <select name="" id="" className='p-2 rounded-lg border w-full' {...register("genre",{required:true})}>
+                <option value={select.sala_id}>{select.sala}</option>
                 {sala.map(sala=>
                     <>
                     <option value={sala.id}>{sala.name}</option>
