@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import { useApp } from '../hooks/useApp'
 import moment from 'moment';
@@ -21,36 +21,35 @@ Modal.setAppElement('#root');
 
 export default function Funciones() {
 
-  const {cartelera,getCartelera,onDeleteCarteleraID,modal,onClickModal} = useApp();
+  const {cartelera,getCartelera,onDeleteCarteleraID,modal,onClickModal,onEstadoCartelera} = useApp();
 
   const [idCartelera,setIdCartelera] =useState('');
+ 
+  
+  const idMovie = (value) =>{
+    setIdCartelera(value)
+  }
+  
+  const [state,setState] = useState(false)
+  
+  
+  const onChangeEstado =(id)=>{
 
-  const idMovie = (id) =>{
-    setIdCartelera(id)
+    onEstadoCartelera(id)
+    //setState(!state)
+    //console.log(state);
+    
   }
 
   const onDeleteMovieID=(id)=>{
-   /*
-   TODO: Eliminar función
-   */
     onDeleteCarteleraID(id);
     console.log(id)
   }
-
-  const onEditMovieID=(id)=>{
-
-    /*
-    TODO: editar funcion
-     */
-    
-    console.log(id);
-  }
-
   
-
   useEffect( ()=>{
     getCartelera();
   },[] )
+
 
   return (
     <div className='flex flex-col p-3'>
@@ -77,11 +76,24 @@ export default function Funciones() {
 
               <div className='flex gap-3 mt-3'>
               <button onClick={()=>{onClickModal(),idMovie(cartelera.id)}}
-                      className='bg-green-500 p-2 text-white font-semibold rounded-lg'>Editar</button>
+                      className='bg-green-500 p-2 text-white font-semibold rounded-lg w-full'>Editar</button>
               <button onClick={()=>{onDeleteMovieID(cartelera.id)}}
-                      className='bg-red-500 p-2 text-white font-semibold rounded-lg'>Eliminar</button>
+                      className='bg-red-500 p-2 text-white font-semibold rounded-lg w-full'>Eliminar</button>
               </div>
-              
+        
+             
+              <div className='mt-2'>
+              <label className="inline-flex items-center cursor-pointer">
+                <input type="checkbox" className="sr-only peer" onChange={()=>{onChangeEstado(cartelera.id)}} />
+                  <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                  <span className="ms-3 font-semibold text-gray-900">{cartelera.estado ? 'Activo' : 'Desactivo' }</span>
+              </label>
+              </div>
+                {/* <div>
+                  checked={onEstado} onChange={onEstado}
+                  <input type="text" onClick={()=>{onEstado(cartelera.estado)}}  checked={onEstado}/>
+                  {cartelera.estado}
+                </div> */}
             </div>
           )}
           </div>

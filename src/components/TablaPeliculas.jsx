@@ -40,9 +40,6 @@ export default function TablaPeliculas() {
                                 Año
                             </th>
 
-                            <th scope="col" className="px-6 py-3">
-                                Action
-                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,9 +54,6 @@ export default function TablaPeliculas() {
                                 <td className="px-6 py-4">
                                     {data.year}
                                 </td>
-                                <td className="px-6 py-4">
-                                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                </td>
                             </tr>
                         )}
 
@@ -68,7 +62,7 @@ export default function TablaPeliculas() {
             </div>
             </div>
 
-            <div className='flex justify-between mt-2'>Mostrando:{data?.from} - {data?.to}
+            <div className='flex justify-between mt-2'>Mostrando: {data?.from}-{data?.to} de {data?.total}
             <div className='flex gap-3'>
                 <button disabled={ !data?.prev_page_url ? true : false}
                         onClick={handlePreviousPage}

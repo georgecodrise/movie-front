@@ -1,15 +1,34 @@
 import { useForm } from 'react-hook-form';
 import { useApp } from '../../hooks/useApp';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function ModalEditPelicula({idMovie}) {
 
     const {register,handleSubmit} = useForm();
-    const {selectMovie,selectedMovie,movie,getMovie,sala, getSala} = useApp();
+    const {selectMovie,selectedMovie,movie,getMovie,sala, getSala,onEditCarteleraID} = useApp();
 
-    const onSubmitForm =(data)=>{
-        //onNewMovie(data);
-        console.log(data);
+    const peliculaRef = useRef();
+    const idRef = useRef();  
+    const salaRef = useRef();
+    const inicioRef = useRef();
+    const finRef = useRef();
+
+
+    const onSubmitForm = (e)=>{
+        
+        e.preventDefault();
+
+        const id =  idRef.current.value;
+
+        const datos={
+            pelicula: peliculaRef.current.value,
+            sala: salaRef.current.value,
+            inicio: inicioRef.current.value,
+            fin: finRef.current.value
+        }
+
+        onEditCarteleraID(datos,id);
+        console.log(datos,id);
     }
 
     //console.log(idMovie);
@@ -34,9 +53,12 @@ export default function ModalEditPelicula({idMovie}) {
         {selectMovie.map( select=>
             
            <>
+
+            <input type="number" value={select.id} ref={idRef} hidden/>
+
             <p>Película</p>
 
-            <select name="" id="" className='p-2 rounded-lg border w-full' {...register("pelicula",{required:true})}>
+            <select className='p-2 rounded-lg border w-full' ref={peliculaRef}>
                 <option value={select.movie_id}>{select.pelicula}</option>
                 {movie.map( movies =>
                     <>
@@ -46,7 +68,7 @@ export default function ModalEditPelicula({idMovie}) {
             </select>
 
             <p>Sala</p>
-            <select name="" id="" className='p-2 rounded-lg border w-full' {...register("sala",{required:true})}>
+            <select className='p-2 rounded-lg border w-full' ref={salaRef}>
                 <option value={select.sala_id}>{select.sala}</option>
                 {sala.map(salas=>
                     <>
@@ -59,23 +81,27 @@ export default function ModalEditPelicula({idMovie}) {
             <input type="datetime-local"
                    placeholder='Año' 
                    className='p-2 rounded-lg border w-full'
-                    defaultValue={select.inicio}
-                   {...register("inicio",{required:true})}/>
+                   defaultValue={select.inicio}
+                    ref={inicioRef}
+                   />
             
             <p>Fin</p>
             <input type="datetime-local" 
                    placeholder='Año' 
                    className='p-2 rounded-lg border w-full'
                    defaultValue={select.fin}
-                   {...register("fin",{required:true})}/>
+                   ref={finRef}
+                   />
 
+            
+                <button onClick={ onSubmitForm}
+                className='bg-blue-600 text-white font-semibold p-2.5 mt-3 rounded-lg'>Guardar</button>
            </>
                 
            )}   
 
         </form>
-        <button onClick={handleSubmit(onSubmitForm)}
-                className='bg-blue-600 text-white font-semibold p-2.5 mt-3 rounded-lg'>Guardar</button>
+        
 
           
     </div>

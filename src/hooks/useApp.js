@@ -11,8 +11,9 @@ export const useApp = () => {
     const [cartelera, setCartelera] = useState([]);
     const [selectMovie, setSelectMovie] = useState([]);
     const [modal,setModal] = useState(false);
-    const [errorCartelera, setErrorCartelera] = useState([])
-    const [errorOnNew, setErrorOnNew] = useState([])
+    const [errorCartelera, setErrorCartelera] = useState([]);
+    const [errorOnNew, setErrorOnNew] = useState([]);
+    const [errorEditMovie,setErrorEditMovie] = useState([]);
 
     
 
@@ -117,11 +118,31 @@ export const useApp = () => {
         }
     }
 
+    const onEditCarteleraID = async (datos,id) =>{
+        try {
+            const {data} = await apiBackend.patch(`/cartelera/${id}`,datos) 
+            console.log(data);
+        } catch (error) {
+            setErrorEditMovie(error.response.data.errors)
+            console.log(error.response.data.errors);
+        }
+    }
+
     const onDeleteCarteleraID = async (id) => {
         try {
-            const {data}=await apiBackend.delete('cartelera',id)
+            const {data}=await apiBackend.delete(`/cartelera/${id}`)
             console.log(`ID desde el useApp ${id}`);
             console.log(data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const onEstadoCartelera = async(id)=>{
+        try {
+            const {data} = await apiBackend.patch(`/cartelera/edit/${id}`)
+            console.log(data);
+            
         } catch (error) {
             console.log(error);
         }
@@ -132,6 +153,8 @@ export const useApp = () => {
 
     const errorNewFun = ()=>toast.error(errorOnNew[0]);
 
+    const errorEdit = ()=>toast.error(errorEditMovie[0])
+
     useEffect( ()=>{
         notify1();
         notify2();
@@ -140,6 +163,10 @@ export const useApp = () => {
     useEffect( ()=>{
         errorNewFun();
     },[errorOnNew]);
+
+    useEffect( ()=>{
+        errorEdit();
+    },[errorEditMovie]);
 
 
 
@@ -158,8 +185,10 @@ export const useApp = () => {
         onClickModal,
         modal,
         onCartelera,
-        errorCartelera,
-        errorOnNew,
-        onDeleteCarteleraID
+        //errorCartelera,
+        //errorOnNew,
+        onDeleteCarteleraID,
+        onEditCarteleraID,
+        onEstadoCartelera
     }
 }
